@@ -1,4 +1,4 @@
-package com.mycompany.plataforma_creacion.Backend.Errors;
+package com.mycompany.plataforma_web.Backend.Errors;
 
 public class Error {
     

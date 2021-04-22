@@ -1,0 +1,51 @@
+
+
+import java.util.ArrayList;
+import java_cup.runtime.Symbol;
+import java.util.List;
+
+class parserIndigo;
+
+parser code {:
+        
+        public parserIndigo(GCIClexer lex){
+                super(lex);
+        }
+
+        public void report_error(String message, Object info){
+                Symbol symbol = cur_token;
+                token tok = (token)symbol.value;
+                if (tok != null) {
+                        System.out.println("Parametro inesperado: |" + ((tok.getLexeme().equals("\"")) ? "comilla" : tok.getLexeme()) + "| Linea: " + tok.getLine() + ", Columna: " + tok.getColumn());
+                        errorsList.add("Parametro inesperado: |" + ((tok.getLexeme().equals("\"")) ? "comilla" : tok.getLexeme()) + "| Linea: " + tok.getLine() + ", Columna: " + tok.getColumn());
+                }
+        }
+
+        public void report_fatal_error(String message, Object info){
+                System.out.println(info.toString());
+                System.out.println("reportfatal");
+        }
+        
+        public void syntax_error(Symbol cur_token){
+                
+                System.out.println("Error sintactico");       
+        }
+
+        protected int error_sync_size() {
+		return 1;
+	}
+    
+
+:}
+
+terminal ME_Q,MA_Q;
+
+non terminal inicio;
+
+start with inicio;
+
+inicio  ::=     SSS contenido FSS
+        |       SCR contRes FCR
+        |       ME_Q ADM inicio2
+        |       error
+        ;
